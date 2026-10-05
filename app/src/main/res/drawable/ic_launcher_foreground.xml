@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:translateX="27" android:translateY="27">
+        <!-- Колесо -->
+        <path
+            android:pathData="M27,27 m-20,0 a20,20 0 1,1 40,0 a20,20 0 1,1 -40,0"
+            android:fillColor="#FFFFFF"/>
+        <!-- Секторы -->
+        <path
+            android:pathData="M27,27 L27,7"
+            android:strokeColor="#FF6B35" android:strokeWidth="2"/>
+        <path
+            android:pathData="M27,27 L47,27"
+            android:strokeColor="#FF6B35" android:strokeWidth="2"/>
+        <path
+            android:pathData="M27,27 L27,47"
+            android:strokeColor="#FF6B35" android:strokeWidth="2"/>
+        <path
+            android:pathData="M27,27 L7,27"
+            android:strokeColor="#FF6B35" android:strokeWidth="2"/>
+        <!-- Центр -->
+        <path
+            android:pathData="M27,27 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"
+            android:fillColor="#FF6B35"/>
+    </group>
+</vector>
