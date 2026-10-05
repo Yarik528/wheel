@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.example.wheeloffortune
 
 import android.os.Bundle
@@ -5,7 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -19,9 +20,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,6 +46,7 @@ fun WheelApp(vm: WheelViewModel) {
     val rotation by vm.currentRotation.collectAsState()
     val winner by vm.winner.collectAsState()
     var showAddDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current  // Получаем контекст здесь, снаружи onClick
 
     Scaffold(
         topBar = {
@@ -71,7 +72,7 @@ fun WheelApp(vm: WheelViewModel) {
         ) {
             // Стрелка-указатель
             Box(modifier = Modifier.padding(bottom = 8.dp)) {
-                androidx.compose.material3.Surface(
+                Surface(
                     modifier = Modifier.size(40.dp),
                     shape = CircleShape,
                     color = Color(0xFFFF6B35)
@@ -98,7 +99,7 @@ fun WheelApp(vm: WheelViewModel) {
 
             // Кнопка вращения
             Button(
-                onClick = { vm.spin(androidx.compose.ui.platform.LocalContext.current) },
+                onClick = { vm.spin(context) },  // Используем context извне
                 enabled = !isSpinning && items.size >= 2,
                 modifier = Modifier.fillMaxWidth().height(56.dp),
                 colors = ButtonDefaults.buttonColors(
