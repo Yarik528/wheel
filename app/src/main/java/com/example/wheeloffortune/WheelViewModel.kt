@@ -6,8 +6,11 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class WheelViewModel : ViewModel() {
 
@@ -48,16 +51,15 @@ class WheelViewModel : ViewModel() {
 
         _currentRotation.value = targetRotation
 
-        // Определяем победителя через 4 секунды (время анимации)
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
-            kotlinx.coroutines.delay(4000)
+        // Определяем победителя через 4 секунды
+        viewModelScope.launch {
+            delay(4000)
             val finalAngle = (targetRotation % 360f)
             val segmentAngle = 360f / _items.value.size
             val winnerIndex = (_items.value.size - (finalAngle / segmentAngle).toInt()) % _items.value.size
             _winner.value = _items.value[winnerIndex]
             _isSpinning.value = false
 
-            // Вибрация при победе
             vibrate(context)
         }
     }
